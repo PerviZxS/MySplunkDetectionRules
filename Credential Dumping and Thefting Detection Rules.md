@@ -1,1 +1,6 @@
-# MySplunkDetectionRules
+# MySplunkDetectionRules #1
+
+index=* (Message="Enabled Privileges:" OR EventCode=4663 OR EventCode=4670 OR EventCode=4648 OR EventCode=4648 OR Message="explicit credentials" OR EventCode=10 OR Image="C:\Windows\System32\lsass.exe" OR Image="mimikatz.exe" OR "0x8A7DCF" OR EventCode=4703 OR Image="*procdump.exe")
+| table _time, host, ComputerName, User, CommandLine, ParentImage, ParentCommandLine, Image, ProcessId, ParentProcessId, EventCode, ParentCommandLine, 
+| sort -_time
+
