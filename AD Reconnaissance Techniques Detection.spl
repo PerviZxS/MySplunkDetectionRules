@@ -1,0 +1,5 @@
+# MySplunkDetectionRules #1
+
+index=* (CommandLine=”whoami” OR CommandLine=”localgroup” OR CommandLine=”Get-DomainUser” OR CommandLine=”Invoke-Command” OR CommandLine=”net user” OR CommandLine=”net group” OR CommandLine=”net view” OR CommandLine=”dsquery” OR CommandLine=”dsget” OR CommandLine=”systeminfo” OR CommandLine=”ldap” OR CommandLine=”domain” OR CommandLine=”Get-DomainGroup” OR CommandLine=”ipconfig” OR CommandLine=”nslookup” OR CommandLine=”ping” OR CommandLine=”tracert” OR CommandLine=”tasklist” OR CommandLine=”taskkill” OR CommandLine=”copy” OR CommandLine=”xcopy” OR CommandLine=”attrib” OR CommandLine=”LDAP://” OR CommandLine=”CN=Users” OR CommandLine=”OU=Domain Controllers” OR CommandLine=”DC=”)
+| table _time, host, user, ComputerName, CommandLine, dest, SourceImage, ParentImage
+| sort -_time
