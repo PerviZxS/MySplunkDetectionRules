@@ -1,0 +1,15 @@
+index=* ("scp" OR "ftp" OR "curl" OR EventCode="4104" OR 
+         "Invoke-GlobalO365MailSearch" OR "Invoke-GlobalMailSearch" OR "Invoke-SelfSearch" OR 
+         "Invoke-PasswordSprayOWA" OR "Invoke-PasswordSprayEWS" OR 
+         "Invoke-DomainHarvestOWA" OR "Invoke-UsernameHarvestOWA" OR 
+         "Invoke-OpenInboxFinder" OR "Invoke-InjectGEventAPI" OR 
+         "Invoke-InjectGEvent" OR "Invoke-SearchGmail" OR 
+         "Invoke-MonitorCredSniper" OR "Invoke-AddGmailRule" OR 
+         "Invoke-PasswordSprayEAS" OR "Invoke-UsernameHarvestEAS")
+| eval CommandLine=coalesce(CommandLine, Message, ScriptBlockText)
+| eval dest=coalesce(dest, DestinationHostname, dest_ip, dvc)
+| eval user=coalesce(user, User, Account_Name, AccountName)
+| eval ParentProcess=coalesce(ParentImage, parent_process, ParentCommandLine)
+| eval SourceProcess=coalesce(SourceImage, process_path, Image)
+| table _time, host, user, ComputerName, CommandLine, SourceProcess, ParentProcess, dest, ProcessId, ParentProcessId, EventCode, logon_type, LogonId
+| sort -_time
