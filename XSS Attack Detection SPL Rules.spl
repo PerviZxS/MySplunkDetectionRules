@@ -1,0 +1,4 @@
+index=main 
+("script>" OR "onerror=" OR "onload=" OR "onclick=" OR "alert(" OR "<img" OR "document.cookie" OR "document.location" OR "<svg" OR "<iframe" OR "<body" OR "javascript:" OR "onmouseover=" OR "%3Cscript%3E" OR "%3Cimg%20src" OR "%3Csvg%20onload" OR "%22onerror%22%3D%22alert" OR "<video" OR "<marquee")
+| eval xss_indicator="Possible XSS detected"
+| table _time, clientip, uri, status, useragent, xss_indicator
